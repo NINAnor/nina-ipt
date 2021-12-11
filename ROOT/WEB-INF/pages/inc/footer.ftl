@@ -1,34 +1,52 @@
 <#ftl output_format="HTML">
+<footer class="footer mt-auto text-muted text-center text-smaller py-3">
+    <div class="container">
+        <div class="mb-1">
+            <img class="footer-gbif-logo" alt="GBIF" src="${baseURL}/images/GBIF-2015-standard-ipt.png"/>
+            Integrated Publishing Toolkit (IPT) <@s.text name="footer.version"/> ${cfg.version!"???"}
+        </div>
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item ipt-footer-item">
+                <a href="https://www.gbif.org/ipt"><small><@s.text name="footer.projectHome"/></small></a>
+            </li>
+            <li class="list-inline-item ipt-footer-item">
+                <a href="https://ipt.gbif.org/manual/" target="_blank"><small><@s.text name="footer.useManual"/></small></a>
+            </li>
+            <li class="list-inline-item ipt-footer-item">
+                <a href="https://github.com/gbif/ipt/issues/new" target="_blank"><small><@s.text name="footer.bugReport"/></small></a>
+            </li>
+            <li class="list-inline-item">
+                <a href="https://github.com/gbif/ipt/issues/new" target="_blank"><small><@s.text name="footer.featureRequest"/></small></a>
+            </li>
+        </ul>
+        <!-- START NINA footer -->
+        <div class="mb-1">
+            <p>&copy;2021 <a href="https://www.nina.no">Norwegian Institute for Nature Research</a></p>
+        </div>
+        <!-- END NINA footer -->
+    </div>
+</footer>
+
+<div id="modalbox">
+    <div id="modalback"></div>
+    <div id="modalcontainer">
+        <div id="modalcontent" class="container-fluid"></div>
+    </div>
 </div>
-			</div>
-			</section>
-			<footer id="section-footer" class="section section-footer">
-  			<div id="zone-footer-wrapper" class="zone-wrapper zone-footer-wrapper clearfix">
-      		<div id="zone-footer" class="zone zone-footer clearfix container_24">
-      			<ul>
-			        <li>IPT <@s.text name="footer.version"/> ${cfg.version!"???"}</li>
-			        <li><a href="http://www.gbif.org/ipt"><@s.text name="footer.projectHome"/></a></li>
-			        <li><a href="https://github.com/gbif/ipt/wiki/IPT2ManualNotes.wiki" target="_blank"><@s.text name="footer.useManual"/></a></li>
-			        <li><a href="https://github.com/gbif/ipt/issues/new" target="_blank"><@s.text name="footer.bugReport"/></a></li>
-			        <li><a href="https://github.com/gbif/ipt/issues/new" target="_blank"><@s.text name="footer.featureRequest"/></a></li>
-		        </ul>
-      		</div>
-  			</div>
 
-  			<div id="zone-credit-wrapper" class="zone-wrapper zone-footer-wrapper clearfix">
-          <div id="zone-credit" class="zone zone-credit clearfix container_24">
-            <aside class="grid_16 region region-credit-first" id="region-credit-first">
-              <div class="region-inner region-credit-first-inner">
-                <!-- START NINA footer -->
-                <p>&copy;2020 <a href="https://www.nina.no">Norwegian Institute for Nature Research</a>.</p>
-                <!-- END NINA footer -->
-              </div>
-            </aside>
-          </div>
-  			</div>
-			</footer>
-		</div>
+<script src="${baseURL}/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="${baseURL}/js/form-validation.js"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+    try {
+        var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+            trigger: 'focus'
+        })
+    } catch (TypeError) {}
+</script>
 
-    <div id="modalbox"><div id="modalback"></div><div id="modalcontainer"><div id="modalcontent"></div></div></div>
-	</body>
+</body>
 </html>

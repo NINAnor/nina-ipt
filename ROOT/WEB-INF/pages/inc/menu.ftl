@@ -1,108 +1,94 @@
 [#ftl output_format="HTML"]
 </head>
- 	<body>
-		<div class="page clearfix" id="page">
-			<header id="section-header" class="section section-header">
-        <div id="zone-user-wrapper" class="zone-wrapper zone-user-wrapper clearfix">
-          <div id="zone-user" class="zone zone-user clearfix container_24">
-            <div class="region-inner region-branding-inner">
-              <div class="branding-data clearfix">
-                <div class="logo-img">
+
+<body class="bg-light d-flex flex-column h-100">
+
+<header>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-gbif-main-navbar fixed-top py-1 [#if !auxTopNavbar]shadow-sm[/#if]">
+        <div class="container">
+            <a href="${baseURL}/" rel="home" title="Logo" class="navbar-brand" >
                 <!-- START NINA logo -->
-                   <a href="${baseURL}" rel="home" title="NINA Logo" class="active">
-                    <img src="${baseURL}/styles/logo.png" />
+                <img src="${baseURL}/images/logo.png" alt="NINA" class="gbif-logo"/>
                 <!-- END NINA logo -->
-                  </a>
-                </div>
-                <hgroup class="site-name-slogan">
-                <!-- START NINA title -->
-                  <h1 class="site-name"><a href="${baseURL}" rel="home" title="Home" class="active">NINA Data - Integrated Publishing Toolkit</a><span class="logoSuperscript">(IPT)</span></h1>
-                <!-- END NINA  title -->
-                  <h6 class="site-slogan">free and open access to biodiversity data</h6>
-                  [#if !cfg.devMode() && cfg.getRegistryType()?has_content && cfg.getRegistryType()=='PRODUCTION']
-                  [#else]
-                    <img class="testmode" src="${baseURL}/styles/testmode.png" />
-                  [/#if]
-                </hgroup>
-                <div id="region-user-second" class="region-inner region-user-second-inner">
-                  <ul id="language-menu">
-                    [#if (Session.curr_user)??]
-                      <li>[@s.text name="menu.loggedin"][@s.param]${Session.curr_user.email}[/@s.param][/@s.text]</li>
-                      <li[#if currentMenu=="account"] class="current"[/#if] ><a href="${baseURL}/account.do">[@s.text name="menu.account"/]</a></li>
-                      <li[#if currentMenu=="logout"] class="current"[/#if]><a href="${baseURL}/logout.do">[@s.text name="menu.logout"/]</a></li>
-                    [#else]
-                      <li>
-                        <form id="login-form" action="${baseURL}/login.do" method="post">
-                          <input type="text" size="25" name="email" class="form-reset" placeholder="email" />
-                          <input type="password" size="20" name="password" class="form-reset" placeholder="password" />
-                          <input name="csrfToken" type="hidden" value="${newCsrfToken!}">
-                          [@s.submit key="portal.login" name="login-submit"/]
-                        </form>
-                      </li>
-                    [/#if]
-                    <li>
-                        [#include "/WEB-INF/pages/inc/languages.ftl"/]
+                <!--
+                <img src="${baseURL}/images/gbif-logo-L.svg" alt="IPT" class="gbif-logo"/>
+                -->
+                [#if !cfg.devMode() && cfg.getRegistryType()?has_content && cfg.getRegistryType()=='PRODUCTION']
+                [#else]
+                    <img class="testmode" alt="[@s.text name="menu.testMode"/]" src="${baseURL}/images/testmode.png" style="width: 100px;"/>
+                [/#if]
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!-- Navbar -->
+                <ul class="navbar-nav me-auto mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link [#if currentMenu=='home']active[/#if]" href="${baseURL}/">[@s.text name="menu.home"/]</a>
                     </li>
-                  </ul>
+                    [#if managerRights]
+                        <li class="nav-item">
+                            <a class="nav-link [#if currentMenu=='manage']active[/#if]" href="${baseURL}/manage/">[@s.text name="menu.manage"/]</a>
+                        </li>
+                    [/#if]
+                    [#if adminRights]
+                        <li class="nav-item">
+                            <a class="nav-link [#if currentMenu=='admin']active[/#if]" href="${baseURL}/admin/">[@s.text name="menu.admin"/]</a>
+                        </li>
+                    [/#if]
+                    <li class="nav-item">
+                        <a class="nav-link [#if currentMenu=='about']active[/#if]" href="${baseURL}/about.do">[@s.text name="menu.about"/]</a>
+                    </li>
+                </ul>
+
+                <div class="d-xl-flex align-content-between">
+                    <!-- Health -->
+                    <div class="navbar-nav">
+                      <a href="${baseURL}/health.do" class="nav-link" title="[@s.text name="portal.health.title"/]">
+                          <svg class="gbif-heartbeat-icon" height="24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-356 246.5 90 77.6"  xml:space="preserve">
+                              <path d="M-277.2,286.2h-22.9l-5,11l-10.1-43.8l-10.9,32.8h-18.6c-1.8,0-3.2,1.4-3.2,3.2c0,1.8,1.4,3.2,3.2,3.2h23.3l5.2-15.5l9.2,40l11.1-24.5h18.7c1.8,0,3.2-1.4,3.2-3.2C-274,287.7-275.4,286.2-277.2,286.2z"/>
+                          </svg>
+                      </a>
+                    </div>
+
+                    <!-- Languages -->
+                    <div id="navbarNavDropdown">
+                        [#include "/WEB-INF/pages/inc/languages.ftl"/]
+                    </div>
+
+                    <!-- Login, account -->
+                    [#if (Session.curr_user)??]
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown d-xl-flex align-content-xl-center">
+                                <a class="btn btn-sm menu-link m-xl-auto navbar-button" id="accountDropdownLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    ${Session.curr_user.email}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-light text-light" aria-labelledby="accountDropdownLink">
+                                    <li>
+                                        <a class="dropdown-item menu-link" href="${baseURL}/account.do">
+                                            [@s.text name="menu.account"/]
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item menu-link" href="${baseURL}/logout.do">
+                                            [@s.text name="menu.logout"/]
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    [#else]
+                        <form action="${baseURL}/login.do" method="post" class="d-xl-flex align-content-xl-center px-1">
+                            <button class="btn btn-sm m-xl-auto navbar-button text-capitalize" type="submit" name="login-submit">
+                                [@s.text name="portal.login"/]
+                            </button>
+                        </form>
+                    [/#if]
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-        <!-- show production logo only if ipt 1) .war was not built in test mode and 2) run in production mode -->
-        <div id="zone-branding-wrapper" class="zone-wrapper zone-branding-wrapper clearfix">
-          <div id="zone-branding" class="zone zone-branding clearfix container_24">
-      		  <div class="grid_13 region region-menu" id="region-menu">
-              <nav>
-      	        <ul>
-      		    	  <li[#if currentMenu=='home'] class="current"[/#if]><a href="${baseURL}/">[@s.text name="menu.home"/]</a></li>
-      		    	  [#if managerRights]
-      		    	    <li[#if currentMenu=='manage'] class="current"[/#if]><a href="${baseURL}/manage/">[@s.text name="menu.manage"/]</a></li>
-      		    	  [/#if]
-      		    	  [#if adminRights]
-      		    	    <li[#if currentMenu=='admin'] class="current"[/#if]><a href="${baseURL}/admin/">[@s.text name="menu.admin"/]</a></li>
-      		    	  [/#if]
-      		    	  <li[#if currentMenu=='about'] class="current"[/#if]><a href="${baseURL}/about.do">[@s.text name="menu.about"/]</a></li>
-      	        </ul>
-      	      </nav>
-      	    </div>
-      	  </div>
-      		<div id="search"></div>
-        </div>
-		  </header>
-		  <section id="section-content" class="section section-content">
-        <div id="zone-content-wrapper" class="zone-wrapper zone-content-wrapper clearfix">
-          <div id="zone-content" class="zone zone-content clearfix container_24">
+    </nav>
+</header>
 
-[#if sideMenuEml!false]
-
-			<aside class="grid_6 push_18">
-			<div class="clearfix" id="sidebar">
-				<h2>[@s.text name='manage.metadata.section' /]</h2>
-				<ul class="sidebar">
-				[#list ["basic", "geocoverage", "taxcoverage","tempcoverage", "keywords", "parties", "project", "methods", "citations", "collections", "physical", "additional"] as it]
-				 <li[#if currentSideMenu?? && currentSideMenu==it] class="current"[#else] class="sidebar"[/#if]><a href="metadata-${it}.do?r=${resource.shortname!r!}">[@s.text name="submenu.${it}"/]</a></li>
-				[/#list]
-				</ul>
-			</div>
-			</aside>
-
-			<div class="grid_18 pull_6 region region-content" id="region-content">
-
-[#else]
-
-			<div class="grid_24 region region-content" id="region-content">
-[/#if]
-
-
-			[@s.actionmessage/]
-			[#if warnings?size>0]
-			 <ul class="warnMessage">
-			 [#list warnings as w]
-	          <li><span>${w!}</span></li>
-			 [/#list]
-             </ul>
-            [/#if]
-			[@s.actionerror/]
-
-            <div id="dialog-confirm" title="[@s.text name="basic.confirm"/]" style="display: none;"></div>
+<div id="dialog-confirm" class="modal fade" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>
