@@ -1,0 +1,9 @@
+services:
+  ipt:
+    image: ghcr.io/ninanor/nina-ipt:main
+    build: .
+  varnish:
+    image: ghcr.io/ninanor/nina-ipt-varnish:main
+    build: varnish
+    ports:
+      - 8080:80
