@@ -6,10 +6,6 @@
  file with their own.
 */
 
-.bg-gbif-main-navbar {
-    background: linear-gradient(#435768, #435768);
-}
-
 table#rtable thead{
   background-color: #dbf0e8;
 }
