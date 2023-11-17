@@ -21,7 +21,7 @@
         </ul>
         <!-- START NINA footer -->
         <div class="mb-1">
-            <p>&copy;2021 <a href="https://www.nina.no">Norwegian Institute for Nature Research</a></p>
+            <p>&copy;2023 <a href="https://www.nina.no">Norwegian Institute for Nature Research</a></p>
         </div>
         <!-- END NINA footer -->
     </div>
