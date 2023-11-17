@@ -1,3 +1,3 @@
-FROM docker.io/gbif/ipt:2.5.8
+FROM docker.io/gbif/ipt:2.7.6
 
 COPY ROOT /usr/local/tomcat/webapps/ROOT
