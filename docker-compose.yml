@@ -1,6 +1,8 @@
 services:
   ipt:
     image: ghcr.io/ninanor/nina-ipt:main
+    #volumes:
+    #- ./ipt-data:/srv/ipt
     build: .
   varnish:
     image: ghcr.io/ninanor/nina-ipt-varnish:main
