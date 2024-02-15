@@ -1,10 +1,10 @@
-FROM docker.io/gbif/ipt:2.7.6
+FROM docker.io/gbif/ipt:3.0.1
 
 ADD ca-certificates /usr/local/share/ca-certificates/
 RUN update-ca-certificates && \
     for f in /usr/local/share/ca-certificates/*.crt; do \
         keytool -import -noprompt -trustcacerts -storepass changeit \
-            -keystore /opt/java/openjdk/jre/lib/security/cacerts \
+            -keystore /opt/java/openjdk/lib/security/cacerts \
             -alias "$(basename $f .crt)" \
             -file "$f"; \
     done
