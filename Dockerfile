@@ -1,4 +1,4 @@
-FROM docker.io/gbif/ipt:3.0.1
+FROM docker.io/gbif/ipt:3.1.7
 
 ADD ca-certificates /usr/local/share/ca-certificates/
 RUN update-ca-certificates && \
