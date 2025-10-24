@@ -19,8 +19,6 @@ jobs:
         include:
           - context: .
             suffix:
-          - context: varnish
-            suffix: -varnish
     permissions:
       contents: read
       packages: write
