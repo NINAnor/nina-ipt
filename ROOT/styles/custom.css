@@ -20,3 +20,8 @@ tr.odd td.sorting_1 {
 tr.even td.sorting_1 {
   background-color: #E6F5EB;
 }
+
+/* https://github.com/gbif/ipt/pull/3022 */
+.bg-gbif-main-navbar {
+  background-image: linear-gradient(to bottom, rgba(var(--navbar-color), 1), rgba(var(--navbar-color), 0.85));
+}

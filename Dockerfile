@@ -1,5 +1,5 @@
-FROM docker.io/gbif/ipt:3.1.7
-
+FROM docker.io/gbif/ipt:3.3.0
+USER root
 ADD ca-certificates /usr/local/share/ca-certificates/
 RUN update-ca-certificates && \
     for f in /usr/local/share/ca-certificates/*.crt; do \
