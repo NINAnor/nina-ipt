@@ -1,8 +1,11 @@
 services:
   ipt:
-    image: ghcr.io/ninanor/nina-ipt:main
-    #volumes:
-    #- ./ipt-data:/srv/ipt
     build: .
+    image: ghcr.io/ninanor/nina-ipt:main
+    volumes:
+    - ipt:/srv/ipt
     ports:
       - 8080:8080
+
+volumes:
+  ipt:
