@@ -1,7 +1,7 @@
 services:
   ipt:
     build: .
-    image: ghcr.io/ninanor/nina-ipt:main
+    image: ghcr.io/ninanor/nina-ipt:dev
     volumes:
     - ipt:/srv/ipt
     ports:
