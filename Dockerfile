@@ -10,3 +10,5 @@ RUN update-ca-certificates && \
     done
 
 COPY ROOT /usr/local/tomcat/webapps/ROOT
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
